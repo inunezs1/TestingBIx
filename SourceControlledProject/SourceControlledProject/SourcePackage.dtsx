@@ -1,0 +1,359 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/15/2018 12:03:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="IVAN"
+  DTS:CreatorName="INTERCERVE\inunez"
+  DTS:DTSID="{E41D129D-76EF-43AD-A948-81B20894A99A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3025.39"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="SourcePackage"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{CF571A50-4F44-443B-81C5-66444F99336A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IVAN\SQL16.AdventureWorks]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{24183926-52D9-4C73-A1D2-3EFF923D0092}"
+      DTS:ObjectName="IVAN\SQL16.AdventureWorks">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=IVAN\SQL16;Initial Catalog=AdventureWorks;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IVAN\SQL16.AdventureWorksClone]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{328834EC-E3E6-4CE2-A62E-7906E865AF1F}"
+      DTS:ObjectName="IVAN\SQL16.AdventureWorksClone">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=IVAN\SQL16;Initial Catalog=AdventureWorksClone;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IVAN\SQL16.AdventureWorksDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{2ADCA925-54E8-42DB-87E6-B38C94DA04E9}"
+      DTS:ObjectName="IVAN\SQL16.AdventureWorksDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=IVAN\SQL16;Initial Catalog=AdventureWorksDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\AdventureWorksDW SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{ed858326-d0de-4023-8ef2-e8003c53a96a}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="AdventureWorksDW SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{2ADCA925-54E8-42DB-87E6-B38C94DA04E9}"
+          SQLTask:SqlStatementSource="SELECT AccountKey, ParentAccountKey, AccountCodeAlternateKey, ParentAccountCodeAlternateKey, AccountDescription, AccountType, Operator, CustomMembers, ValueType, CustomMemberOptions&#xA;FROM   DimAccount" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DW Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{db65bc1b-7381-4ca3-bc33-07160871bad3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DW Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Primary Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{3353A7D1-6D79-4168-ACFF-3D2430AF558B}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Primary Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Primary Sequence Container\Main Data Flow Task"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{35ddda44-b53f-4e05-84ca-850edc55f8b3}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Main Data Flow Task"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Primary Sequence Container\Secondary Sequence Container"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{3a54570c-a207-47c1-a4be-5543551caf34}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Secondary Sequence Container">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Primary Sequence Container\Secondary Sequence Container\AdventureWorksClone SQL Task"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{B45F0AAD-7F91-4392-93D8-DA65BC6E52A4}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="AdventureWorksClone SQL Task"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{328834EC-E3E6-4CE2-A62E-7906E865AF1F}"
+                  SQLTask:SqlStatementSource="SELECT AddressID, AddressLine1, AddressLine2, City, StateProvinceID, PostalCode, SpatialLocation, rowguid, ModifiedDate&#xA;FROM   Person.Address" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Primary Sequence Container\Secondary Sequence Container\Clone Data Flow Task"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{07B28BC6-E71A-4C41-953F-EE3A0A1CDE57}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Clone Data Flow Task"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Primary Sequence Container\Secondary Sequence Container.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{115DF176-0FB9-4DEC-9488-38CD543F2422}"
+              DTS:From="Package\Primary Sequence Container\Secondary Sequence Container\AdventureWorksClone SQL Task"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Primary Sequence Container\Secondary Sequence Container\Clone Data Flow Task" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Primary Sequence Container\SQL Task AdventureWorks"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{860304d5-8126-4f79-8db2-8d5b576d70ed}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Task AdventureWorks"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{24183926-52D9-4C73-A1D2-3EFF923D0092}"
+              SQLTask:SqlStatementSource="SELECT AddressID, AddressLine1, AddressLine2, City, StateProvinceID, PostalCode, SpatialLocation, rowguid, ModifiedDate&#xA;FROM   Person.Address" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Primary Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{f4cfc856-d1cd-410b-b90d-3caf80d5ff94}"
+          DTS:From="Package\Primary Sequence Container\SQL Task AdventureWorks"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Primary Sequence Container\Main Data Flow Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{379610e9-1643-4092-93d5-67593aa49f64}"
+      DTS:From="Package\AdventureWorksDW SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DW Data Flow Task" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="164,42.6666666666667"
+          Id="Package\Primary Sequence Container\SQL Task AdventureWorks"
+          TopLeft="35.8333276336392,7.03333079953994" />
+        <NodeLayout
+          Size="177.333333333334,42.6666666666667"
+          Id="Package\Primary Sequence Container\Main Data Flow Task"
+          TopLeft="96.2499934000274,130.099995265603" />
+        <EdgeLayout
+          Id="Package\Primary Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="117.833327633639,49.6999974662066">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="67.0833324330549,80.3999977993965"
+              Start="0,0"
+              End="67.0833324330549,72.8999977993965">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1999988996983" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.1999988996983"
+                    Point2="0,40.1999988996983"
+                    Point3="4,40.1999988996983" />
+                  <mssgle:LineSegment
+                    End="63.0833324330549,40.1999988996983" />
+                  <mssgle:CubicBezierSegment
+                    Point1="63.0833324330549,40.1999988996983"
+                    Point2="67.0833324330549,40.1999988996983"
+                    Point3="67.0833324330549,44.1999988996983" />
+                  <mssgle:LineSegment
+                    End="67.0833324330549,72.8999977993965" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="230.666666666667,42.6666666666667"
+          Id="Package\Primary Sequence Container\Secondary Sequence Container\AdventureWorksClone SQL Task"
+          TopLeft="29.5238025770301,11.6285658562183" />
+        <EdgeLayout
+          Id="Package\Primary Sequence Container\Secondary Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="144.857135910364,54.295232522885">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-26.333333308498,53.9666649387279"
+              Start="0,0"
+              End="-26.333333308498,46.4666649387279">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.983332469364" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.983332469364"
+                    Point2="0,26.983332469364"
+                    Point3="-4,26.983332469364" />
+                  <mssgle:LineSegment
+                    End="-22.333333308498,26.983332469364" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.333333308498,26.983332469364"
+                    Point2="-26.333333308498,26.983332469364"
+                    Point3="-26.333333308498,30.983332469364" />
+                  <mssgle:LineSegment
+                    End="-26.333333308498,46.4666649387279" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="181.333333333334,42.6666666666667"
+          Id="Package\Primary Sequence Container\Secondary Sequence Container\Clone Data Flow Task"
+          TopLeft="27.8571359351988,108.261897461613" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="266.666666666667,228"
+          Size="266.666666666667,270.666666666667"
+          Id="Package\Primary Sequence Container\Secondary Sequence Container"
+          TopLeft="36.9047553943735,196.047614564498" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="328,522"
+          Size="328,564.666666666667"
+          Id="Package\Primary Sequence Container"
+          TopLeft="400.178565465446,18.757142521739" />
+        <NodeLayout
+          Size="164,42.6666666666667"
+          Id="Package\AdventureWorksDW SQL Task"
+          TopLeft="93.9285713700311,128.366665284094" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="175.928571370031,171.033331950761">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51.9166659526528,77.3047597595055"
+              Start="0,0"
+              End="51.9166659526528,69.8047597595055">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.6523798797528" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.6523798797528"
+                    Point2="0,38.6523798797528"
+                    Point3="4,38.6523798797528" />
+                  <mssgle:LineSegment
+                    End="47.9166659526528,38.6523798797528" />
+                  <mssgle:CubicBezierSegment
+                    Point1="47.9166659526528,38.6523798797528"
+                    Point2="51.9166659526528,38.6523798797528"
+                    Point3="51.9166659526528,42.6523798797528" />
+                  <mssgle:LineSegment
+                    End="51.9166659526528,69.8047597595055" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\DW Data Flow Task"
+          TopLeft="141.845237322684,248.338091710267" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
